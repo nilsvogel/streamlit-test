@@ -48,7 +48,6 @@ data = [
     {'Orig_orig': 'LHR', 'Dest': 'JFK', 'Counts': 14, 'OrigAirpName_orig': 'LONDON HEATHROW', 'OrigCity_orig': 'LON', 'OrigCityNme_orig': 'LONDON', 'OrigCountry_orig': 'GB', 'OrigCountryName_orig': 'UNITED KINGDOM', 'OrigCont_orig': 'EU', 'OrigContName_orig': 'EUROPE', 'orig_x_orig': -0.461389, 'orig_y_orig': 51.4775, 'Orig_dest': 'JFK', 'OrigAirpName_dest': 'NEW YORK J F KENNEDY INTERNATIONAL AIRPORT', 'OrigCity_dest': 'NYC', 'OrigCityNme_dest': 'NEW YORK', 'OrigCountry_dest': 'US', 'OrigCountryName_dest': 'UNITED STATES', 'OrigCont_dest': 'NA', 'OrigContName_dest': 'NORTH AMERICA', 'orig_x_dest': -73.7781, 'orig_y_dest': 40.6398},
     {'Orig_orig': 'SFO', 'Dest': 'LAX', 'Counts': 13, 'OrigAirpName_orig': 'SAN FRANCISCO INTERNATIONAL AIRPORT', 'OrigCity_orig': 'SFO', 'OrigCityNme_orig': 'SAN FRANCISCO', 'OrigCountry_orig': 'US', 'OrigCountryName_orig': 'UNITED STATES', 'OrigCont_orig': 'NA', 'OrigContName_orig': 'NORTH AMERICA', 'orig_x_orig': -122.375, 'orig_y_orig': 37.6189, 'Orig_dest': 'LAX', 'OrigAirpName_dest': 'LOS ANGELES INTERNATIONAL AIRPORT', 'OrigCity_dest': 'LAX', 'OrigCityNme_dest': 'LOS ANGELES', 'OrigCountry_dest': 'US', 'OrigCountryName_dest': 'UNITED STATES', 'OrigCont_dest': 'NA', 'OrigContName_dest': 'NORTH AMERICA', 'orig_x_dest': -118.4081, 'orig_y_dest': 33.9425},
     {'Orig_orig': 'SYD', 'Dest': 'MEL', 'Counts': 11, 'OrigAirpName_orig': 'SYDNEY KINGSFORD SMITH', 'OrigCity_orig': 'SYD', 'OrigCityNme_orig': 'SYDNEY', 'OrigCountry_orig': 'AU', 'OrigCountryName_orig': 'AUSTRALIA', 'OrigCont_orig': 'AP', 'OrigContName_orig': 'ASIA/PACIFIC', 'orig_x_orig': 151.1772, 'orig_y_orig': -33.9461, 'Orig_dest': 'MEL', 'OrigAirpName_dest': 'MELBOURNE TULLAMARINE', 'OrigCity_dest': 'MEL', 'OrigCityNme_dest': 'MELBOURNE', 'OrigCountry_dest': 'AU', 'OrigCountryName_dest': 'AUSTRALIA', 'OrigCont_dest': 'AP', 'OrigContName_dest': 'ASIA/PACIFIC', 'orig_x_dest': 144.8433, 'orig_y_dest': -37.6733},
-    # Add more data as needed...
 ]
 
 merged_flight_paths = pd.DataFrame(data)
@@ -66,7 +65,7 @@ for idx, row in merged_flight_paths.iterrows():
     bearing = calculate_initial_compass_bearing(orig, dest)
 
     # Get points along the great circle path
-    line_points = [get_geodesic_point(orig, bearing, d) for d in np.linspace(0, distance, num=50)]
+    line_points = [get_geodesic_point(orig, bearing, fraction * distance) for fraction in np.linspace(0, 1, num=50)]
     
     folium.PolyLine(locations=line_points, color="blue", weight=2.5, opacity=1).add_to(m)
 
