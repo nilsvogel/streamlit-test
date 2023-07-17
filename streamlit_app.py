@@ -65,7 +65,7 @@ for idx, row in merged_flight_paths.iterrows():
     bearing = calculate_initial_compass_bearing(orig, dest)
 
     # Get points along the great circle path
-    line_points = [get_geodesic_point(orig, bearing, fraction * distance) for fraction in np.linspace(0, 1, num=50)]
+    line_points = [get_geodesic_point(orig, bearing, fraction * distance) for fraction in np.linspace(0, 1, num=1000)]
     
     folium.PolyLine(locations=line_points, color="blue", weight=2.5, opacity=1).add_to(m)
 
